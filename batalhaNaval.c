@@ -1,40 +1,81 @@
 #include <stdio.h>
 
-// Desafio Batalha Naval - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de Batalha Naval.
-// Siga os comentários para implementar cada parte do desafio.
+#define TAM 10
 
-int main() {
-    // Nível Novato - Posicionamento dos Navios
-    // Sugestão: Declare uma matriz bidimensional para representar o tabuleiro (Ex: int tabuleiro[5][5];).
-    // Sugestão: Posicione dois navios no tabuleiro, um verticalmente e outro horizontalmente.
-    // Sugestão: Utilize `printf` para exibir as coordenadas de cada parte dos navios.
+int main()
+{
+    int tabuleiro[TAM][TAM] = {0};
+    int escolha, x, y;
 
-    // Nível Aventureiro - Expansão do Tabuleiro e Posicionamento Diagonal
-    // Sugestão: Expanda o tabuleiro para uma matriz 10x10.
-    // Sugestão: Posicione quatro navios no tabuleiro, incluindo dois na diagonal.
-    // Sugestão: Exiba o tabuleiro completo no console, mostrando 0 para posições vazias e 3 para posições ocupadas.
+    printf("Escolha uma opcao:\n");
+    printf("1 - Aplicar habilidade Cone\n");
+    printf("2 - Aplicar habilidade Cruz\n");
+    printf("3 - Aplicar habilidade Octaedro\n");
+    printf("4 - Mostrar tabuleiro zerado\n");
+    scanf("%d", &escolha);
 
-    // Nível Mestre - Habilidades Especiais com Matrizes
-    // Sugestão: Crie matrizes para representar habilidades especiais como cone, cruz, e octaedro.
-    // Sugestão: Utilize estruturas de repetição aninhadas para preencher as áreas afetadas por essas habilidades no tabuleiro.
-    // Sugestão: Exiba o tabuleiro com as áreas afetadas, utilizando 0 para áreas não afetadas e 1 para áreas atingidas.
+    if (escolha >= 1 && escolha <= 3)
+    {
+        printf("Digite as coordenadas [x] e [y] (0-%d): ", TAM - 1);
+        scanf("%d  %d", &x, &y);
 
-    // Exemplos de exibição das habilidades:
-    // Exemplo para habilidade em cone:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 1 1 1 1 1
-    
-    // Exemplo para habilidade em octaedro:
-    // 0 0 1 0 0
-    // 0 1 1 1 0
-    // 0 0 1 0 0
+    }
+    switch (escolha)
+    {
+    case 1:
+        if (x >= 2 && y >= 1 && y < TAM - 1)
+        {
+            tabuleiro[x][y] = 1;
+            tabuleiro[x - 1][y - 1] = 1;
+            tabuleiro[x - 1][y] = 1;
+            tabuleiro[x - 1][y + 1] = 1;
+            tabuleiro[x - 2][y] = 1;
+        }
+        break;
+    case 2:
+        if (x > 0 && x < TAM - 1 && y > 0 && y < TAM - 1)
+        {
+            tabuleiro[x][y] = 1;
+            tabuleiro[x - 1][y] = 1;
+            tabuleiro[x + 1][y] = 1;
+            tabuleiro[x][y - 1] = 1;
+            tabuleiro[x][y + 1] = 1;
+        }
+        break;
+    case 3:
+        if (x > 0 && x < TAM - 1 && y > 0 && y < TAM - 1)
+        {
+            tabuleiro[x][y] = 1;
+            tabuleiro[x - 1][y] = 1;
+            tabuleiro[x + 1][y] = 1;
+            tabuleiro[x][y - 1] = 1;
+            tabuleiro[x][y + 1] = 1;
+            if (x > 1)
+                tabuleiro[x - 2][y] = 1;
+            if (x < TAM - 2)
+                tabuleiro[x + 2][y] = 1;
+            if (y > 1)
+                tabuleiro[x][y - 2] = 1;
+            if (y < TAM - 2)
+                tabuleiro[x][y + 2] = 1;
+        }
+        break;
+    case 4:
 
-    // Exemplo para habilidade em cruz:
-    // 0 0 1 0 0
-    // 1 1 1 1 1
-    // 0 0 1 0 0
+        break;
+    default:
+        printf("Opcao invalida!\n");
+        return 1;
+    }
+    printf("\nTabuleiro:\n");
+    for (int i = 0; i < TAM; i++)
+    {
+        for (int j = 0; j < TAM; j++)
+        {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
 
     return 0;
 }
